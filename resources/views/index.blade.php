@@ -29,10 +29,11 @@
                                 @if (!empty($stdListing))
                                     @foreach ($stdListing as $key =>$stdVal)
                                         <tr>
-                                            <td>{{$key+1}}.</td>
-                                            <td>{{$stdVal->name}}</td>
-                                            <td>{{$stdVal->email}}</td>
-                                            <td>{{$stdVal->mobile}}</td>
+                                            <td>{{ $key+1 }}.</td>
+                                            <td>{{ $stdVal->name }}</td>
+                                            <td>{{ $stdVal->email }}</td>
+                                            <td>{{ $stdVal->mobile }}</td>
+                                            <td>{{ ($stdVal->gender == 'M')?'Male':'Female' }}</td>
                                             <td>
                                                 <img src="{{ (!empty($stdVal->img))?asset($stdVal->img):asset('Image/No-Image.png') }}" alt="" class="img-circle" style="width: 85px;height: 80px;">
                                             </td>

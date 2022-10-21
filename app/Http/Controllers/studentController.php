@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\student;
 use Illuminate\Support\Facades\File; 
+use Illuminate\Validation\Rules\Enum;
 
 class studentController extends Controller
 {
@@ -19,9 +20,10 @@ class studentController extends Controller
     public function storestudentdetials(Request $request){
        $validated = $request->validate([
         'name'      => 'required',
-        'email'     => 'required|email',
-        'mobile'    => 'required|numeric',
-        'img'       => 'required'
+        'email'     => 'required|email|unique:students,email',
+        'mobile'    => 'required|numeric|unique:students,mobile',
+        'gender'    => 'required|in:M,F,O',
+        'img'       => 'required|mimes:jpeg,jpg,png|max:50'
        ]);
        if($request->file('img')){
             $image = $request->file('img');
@@ -32,6 +34,7 @@ class studentController extends Controller
        $data->name = $request->name;
        $data->email = $request->email;
        $data->mobile = $request->mobile;
+       $data->gender = $request->gender;
        $data->img = $save_img_path;
        if($data->save()){
         $image->move(public_path('upload'),$img_path);
@@ -78,4 +81,5 @@ class studentController extends Controller
        }
 
     }
+
 }

@@ -36,6 +36,15 @@ Add Student Daetails
                             <input type="number" name="mobile" id="mobile" class="form-control" placeholder="Mobile" value="{{ old('mobile') }}">
                         </div>
                         <div class="form-group">
+                          <label for="gender">Gender</label>
+                          <div class="input-group">
+                            <label for="m">Male</label>
+                            <input type="radio" name="gender" id="m" value="M">
+                            <label for="f">Female</label>
+                            <input type="radio" name="gender" id="f" value="F">
+                          </div>
+                        </div>
+                        <div class="form-group">
                           <label for="img">Upload Image</label>
                           <input type="file" name="img" id="img">
                           <p class="help-block">Example block-level help text here.</p>
