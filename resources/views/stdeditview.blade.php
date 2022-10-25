@@ -1,4 +1,4 @@
-@extends('welcome');
+@extends('welcome')
 @section('title')
     Edit Student Information
 @endsection
@@ -35,6 +35,15 @@
                                 <label for="mobile">Mobile No.</label>
                                 <input type="number" name="mobile" id="mobile" class="form-control" placeholder="Mobile" value="{{ $stdEditData->mobile }}">
                             </div>
+                            <div class="form-group">
+                                <label for="gender">Gender</label>
+                                <div class="input-group">
+                                  <label for="m">Male</label>
+                                  <input type="radio" name="gender" id="m" value="M" {{ ($stdEditData->gender == 'M')?'checked':''}}>
+                                  <label for="f">Female</label>
+                                  <input type="radio" name="gender" id="f" value="F" {{ ($stdEditData->gender == 'F')?'checked':''}}>
+                                </div>
+                              </div>
                             <div class="form-group">
                                 <label for="img">Upload Image</label>
                                 <input type="file" name="img" id="img">

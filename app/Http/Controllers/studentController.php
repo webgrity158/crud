@@ -66,6 +66,7 @@ class studentController extends Controller
             $stdEditAllData->name = $request->name;
             $stdEditAllData->email = $request->email;
             $stdEditAllData->mobile = $request->mobile;
+            $stdEditAllData->gender = $request->gender;
             $stdEditAllData->img = $editImgURL;
             if($stdEditAllData->save()){
                 $editImg->move(public_path('upload'), $editImgURL);
@@ -75,6 +76,7 @@ class studentController extends Controller
             $stdEditAllData->name = $request->name;
             $stdEditAllData->email = $request->email;
             $stdEditAllData->mobile = $request->mobile;
+            $stdEditAllData->gender = $request->gender;
             if( $stdEditAllData->save()){
                 return redirect()->route('stdListing')->with('message', 'Student Details is Updated');
             }
