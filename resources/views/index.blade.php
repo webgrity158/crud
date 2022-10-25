@@ -29,7 +29,7 @@
                                 @if (!empty($stdListing))
                                     @foreach ($stdListing as $key =>$stdVal)
                                         <tr>
-                                            <td>{{ $key+1 }}.</td>
+                                            <td>{{$stdListing->firstItem() + $loop->index }}.</td>
                                             <td>{{ $stdVal->name }}</td>
                                             <td>{{ $stdVal->email }}</td>
                                             <td>{{ $stdVal->mobile }}</td>
@@ -53,6 +53,7 @@
                         </table>
                         <a href="{{ route('addPageView') }}" class="btn btn-primary btn-sm" style="float: right;">Add Student</a>
                     </div>
+                    {{ $stdListing->links() }}
                   </div>
             </div>
         </div>

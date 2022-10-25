@@ -6,11 +6,15 @@ use Illuminate\Http\Request;
 use App\Models\student;
 use Illuminate\Support\Facades\File; 
 use Illuminate\Validation\Rules\Enum;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 class studentController extends Controller
 {
     public function stdListing(){
-        $stdListing = student::all();
+        // $stdListing = student::all();
+        //  $stdListing = student::latest()->paginate(5);
+        // $stdListing = DB::table('students')->latest()->get();
+        $stdListing = DB::table('students')->latest()->paginate(5);
         return view('index', compact('stdListing')); 
     }
     public function addPageView(){
@@ -30,19 +34,43 @@ class studentController extends Controller
             $img_path = uniqid().'.'.$image->getClientOriginalExtension();
             $save_img_path = 'upload/'.$img_path;
        }
-       $data = new student;
-       $data->name = $request->name;
-       $data->email = $request->email;
-       $data->mobile = $request->mobile;
-       $data->gender = $request->gender;
-       $data->img = $save_img_path;
-       if($data->save()){
-        $image->move(public_path('upload'),$img_path);
-        return redirect()->route('stdListing')->with('message', 'Student Data Successfully Added');
-       }
+    //    $data = new student;
+    //    $data->name = $request->name;
+    //    $data->email = $request->email;
+    //    $data->mobile = $request->mobile;
+    //    $data->gender = $request->gender;
+    //    $data->img = $save_img_path;
+    //    if($data->save()){
+    //     $image->move(public_path('upload'),$img_path);
+    //     return redirect()->route('stdListing')->with('message', 'Student Data Successfully Added');
+    //    }
+        // $insertVal = student::insert([
+        //     'name'          => $request->name,
+        //     'email'         => $request->email,
+        //     'mobile'        => $request->mobile,
+        //     'gender'        => $request->gender,
+        //     'img'           => $save_img_path,
+        //     'created_at'   => Carbon::now()
+        // ]);
+        // if($insertVal){
+        //     $image->move(public_path('upload'), $img_path);
+        //     return redirect()->route('stdListing')->with('message', 'Student Data Successfully Added');
+        // }
+        $data = array();
+        $data['name']   = $request->name;
+        $data['email']  = $request->email;
+        $data['mobile'] = $request->mobile;
+        $data['gender'] = $request->gender;
+        $data['img']    = $save_img_path;
+        $insertVal = DB::table('students')->insert($data);
+        if($insertVal){
+            $image->move(public_path('upload'), $img_path);
+            return redirect()->route('stdListing')->with('message', 'Student Data Successfully Added');
+        }
     }
     public function stdEdit($id){
-        $stdEditData = student::find($id);
+        // $stdEditData = student::find($id);
+        $stdEditData = DB::table('students')->get();
         return view('stdeditview', compact('stdEditData'));
     }
     public function stdDelete($id){
